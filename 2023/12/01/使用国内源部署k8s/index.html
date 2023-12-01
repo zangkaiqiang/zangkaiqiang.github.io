@@ -79,19 +79,17 @@
 
 
 
-<meta name="description" content="architecture backbone">
+<meta name="description" content="环境 系统：ubuntu20.04 docker版本12345678910111213141516171819202122232425262728Client: Version:           20.10.21 API version:       1.41 Go version:        go1.18.1 Git commit:        20.10.21-0ubuntu1~20">
 <meta property="og:type" content="article">
-<meta property="og:title" content="YOLOV4学习笔记">
-<meta property="og:url" content="https://zangkaiqiang.github.io/2023/04/26/YOLOV4%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/index.html">
+<meta property="og:title" content="使用国内源部署k8s">
+<meta property="og:url" content="https://zangkaiqiang.github.io/2023/12/01/%E4%BD%BF%E7%94%A8%E5%9B%BD%E5%86%85%E6%BA%90%E9%83%A8%E7%BD%B2k8s/index.html">
 <meta property="og:site_name" content="EXPANSE">
-<meta property="og:description" content="architecture backbone">
+<meta property="og:description" content="环境 系统：ubuntu20.04 docker版本12345678910111213141516171819202122232425262728Client: Version:           20.10.21 API version:       1.41 Go version:        go1.18.1 Git commit:        20.10.21-0ubuntu1~20">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://zangkaiqiang.github.io/images/YOLOv4-network-architecture.png">
-<meta property="article:published_time" content="2023-04-26T14:57:52.000Z">
+<meta property="article:published_time" content="2023-12-01T13:57:39.000Z">
 <meta property="article:modified_time" content="2023-12-01T06:07:32.880Z">
 <meta property="article:author" content="blinkzzz">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://zangkaiqiang.github.io/images/YOLOv4-network-architecture.png">
 
 
 
@@ -121,13 +119,13 @@
 
 
 
-  <link rel="canonical" href="https://zangkaiqiang.github.io/2023/04/26/YOLOV4学习笔记/"/>
+  <link rel="canonical" href="https://zangkaiqiang.github.io/2023/12/01/使用国内源部署k8s/"/>
 
 
 
 
 
-  <title>YOLOV4学习笔记 | EXPANSE</title>
+  <title>使用国内源部署k8s | EXPANSE</title>
   
 
 
@@ -264,7 +262,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://zangkaiqiang.github.io/2023/04/26/YOLOV4%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
+    <link itemprop="mainEntityOfPage" href="https://zangkaiqiang.github.io/2023/12/01/%E4%BD%BF%E7%94%A8%E5%9B%BD%E5%86%85%E6%BA%90%E9%83%A8%E7%BD%B2k8s/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="blinkzzz">
@@ -281,7 +279,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">YOLOV4学习笔记</h1>
+          <h1 class="post-title" itemprop="name headline">使用国内源部署k8s</h1>
         
 
         <div class="post-meta">
@@ -293,8 +291,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2023-04-26T14:57:52+00:00">
-                2023-04-26
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2023-12-01T13:57:39+00:00">
+                2023-12-01
               </time>
             
 
@@ -343,8 +341,26 @@
       
 
       
-        <h2 id="architecture"><a href="#architecture" class="headerlink" title="architecture"></a>architecture</h2><p><img src="/images/YOLOv4-network-architecture.png" alt="alt"></p>
-<h2 id="backbone"><a href="#backbone" class="headerlink" title="backbone"></a>backbone</h2>
+        <h2 id="环境"><a href="#环境" class="headerlink" title="环境"></a>环境</h2><ul>
+<li>系统：ubuntu20.04</li>
+<li>docker版本<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">Client:</span><br><span class="line"> Version:           20.10.21</span><br><span class="line"> API version:       1.41</span><br><span class="line"> Go version:        go1.18.1</span><br><span class="line"> Git commit:        20.10.21-0ubuntu1~20.04.2</span><br><span class="line"> Built:             Thu Apr 27 05:56:19 2023</span><br><span class="line"> OS&#x2F;Arch:           linux&#x2F;amd64</span><br><span class="line"> Context:           default</span><br><span class="line"> Experimental:      true</span><br><span class="line"></span><br><span class="line">Server:</span><br><span class="line"> Engine:</span><br><span class="line">  Version:          20.10.21</span><br><span class="line">  API version:      1.41 (minimum version 1.12)</span><br><span class="line">  Go version:       go1.18.1</span><br><span class="line">  Git commit:       20.10.21-0ubuntu1~20.04.2</span><br><span class="line">  Built:            Thu Apr 27 05:37:01 2023</span><br><span class="line">  OS&#x2F;Arch:          linux&#x2F;amd64</span><br><span class="line">  Experimental:     false</span><br><span class="line"> containerd:</span><br><span class="line">  Version:          1.7.2</span><br><span class="line">  GitCommit:</span><br><span class="line"> runc:</span><br><span class="line">  Version:          1.1.0-0ubuntu1~20.04.2</span><br><span class="line">  GitCommit:</span><br><span class="line"> docker-init:</span><br><span class="line">  Version:          0.19.0</span><br><span class="line">  GitCommit:</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h2 id="修改docker镜像源"><a href="#修改docker镜像源" class="headerlink" title="修改docker镜像源"></a>修改docker镜像源</h2><p>修改/etc/docker/daemon.json 如下</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;insecure-registries&quot; : [&quot;192.168.2.166:8080&quot;, &quot;blinkz.asuscomm.com:18080&quot;],</span><br><span class="line">  &quot;registry-mirrors&quot;: [&quot;https:&#x2F;&#x2F;registry.docker-cn.com&quot;,&quot;http:&#x2F;&#x2F;hub-mirror.c.163.com&quot;,&quot;https:&#x2F;&#x2F;docker.mirrors.ustc.edu.cn&quot;],</span><br><span class="line">  &quot;exec-opts&quot;: [&quot;native.cgroupdriver&#x3D;systemd&quot;]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="使用阿里源安装k8s套件"><a href="#使用阿里源安装k8s套件" class="headerlink" title="使用阿里源安装k8s套件"></a>使用阿里源安装k8s套件</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"># 添加并信任APT证书</span><br><span class="line">curl https:&#x2F;&#x2F;mirrors.aliyun.com&#x2F;kubernetes&#x2F;apt&#x2F;doc&#x2F;apt-key.gpg | sudo apt-key add -</span><br><span class="line"></span><br><span class="line"># 添加源地址</span><br><span class="line">add-apt-repository &quot;deb https:&#x2F;&#x2F;mirrors.aliyun.com&#x2F;kubernetes&#x2F;apt&#x2F; kubernetes-xenial main&quot;</span><br><span class="line"></span><br><span class="line"># 更新源并安装最新版 kubenetes</span><br><span class="line">sudo apt update &amp;&amp; apt install -y kubelet kubeadm kubectl</span><br></pre></td></tr></table></figure>
+
+<h2 id="启动master节点"><a href="#启动master节点" class="headerlink" title="启动master节点"></a>启动master节点</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubeadm init --image-repository&#x3D;&#39;registry.cn-hangzhou.aliyuncs.com&#x2F;google_containers&#39;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="遇到的问题"><a href="#遇到的问题" class="headerlink" title="遇到的问题"></a>遇到的问题</h2><h3 id="kubeadm-init-报错-cri-相关"><a href="#kubeadm-init-报错-cri-相关" class="headerlink" title="kubeadm init 报错 cri 相关"></a><code>kubeadm init</code> 报错 <code>cri</code> 相关</h3><p>期间也遇到了 kubelet无法启动的问题，是相同的原因，是因为 <code>containerd</code> 服务版本问题导致的，更新 <code>containerd</code> 即可解决</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt install containerd</span><br></pre></td></tr></table></figure>
+
+<h3 id="为什么使用国内源"><a href="#为什么使用国内源" class="headerlink" title="为什么使用国内源"></a>为什么使用国内源</h3><p>国外源需要翻墙，非常麻烦</p>
+<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><p><a href="https://gist.github.com/islishude/231659cec0305ace090b933ce851994a" target="_blank" rel="noopener">https://gist.github.com/islishude/231659cec0305ace090b933ce851994a</a></p>
+
       
     </div>
     
@@ -368,8 +384,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2020/08/04/Git-LFS%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-track%E5%92%8Cuntrack/" rel="next" title="Git LFS学习笔记:track和untrack">
-                <i class="fa fa-chevron-left"></i> Git LFS学习笔记:track和untrack
+              <a href="/2023/11/29/Agent-is-all-you-need/" rel="next" title="Agent is all you need">
+                <i class="fa fa-chevron-left"></i> Agent is all you need
               </a>
             
           </div>
@@ -377,10 +393,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2023/11/29/Agent-is-all-you-need/" rel="prev" title="Agent is all you need">
-                Agent is all you need <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -521,7 +533,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#architecture"><span class="nav-number">1.</span> <span class="nav-text">architecture</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#backbone"><span class="nav-number">2.</span> <span class="nav-text">backbone</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#环境"><span class="nav-number">1.</span> <span class="nav-text">环境</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#修改docker镜像源"><span class="nav-number">2.</span> <span class="nav-text">修改docker镜像源</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用阿里源安装k8s套件"><span class="nav-number">3.</span> <span class="nav-text">使用阿里源安装k8s套件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#启动master节点"><span class="nav-number">4.</span> <span class="nav-text">启动master节点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#遇到的问题"><span class="nav-number">5.</span> <span class="nav-text">遇到的问题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#kubeadm-init-报错-cri-相关"><span class="nav-number">5.1.</span> <span class="nav-text">kubeadm init 报错 cri 相关</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#为什么使用国内源"><span class="nav-number">5.2.</span> <span class="nav-text">为什么使用国内源</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Reference"><span class="nav-number">6.</span> <span class="nav-text">Reference</span></a></li></ol></div>
             
 
           </div>
