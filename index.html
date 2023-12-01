@@ -306,7 +306,7 @@
               
                 <span class="post-meta-item-text">Post modified&#58;</span>
               
-              <time title="Post modified" itemprop="dateModified" datetime="2023-12-01T07:06:58+00:00">
+              <time title="Post modified" itemprop="dateModified" datetime="2023-12-01T07:12:38+00:00">
                 2023-12-01
               </time>
             
@@ -342,17 +342,38 @@
       
         
           
-          环境
-系统：ubuntu20.04
-docker版本12345678910111213141516171819202122232425262728Client:
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2023/12/01/%E4%BD%BF%E7%94%A8%E5%9B%BD%E5%86%85%E6%BA%90%E9%83%A8%E7%BD%B2k8s/#more" rel="contents">
-              Read more &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
+            <h2 id="环境"><a href="#环境" class="headerlink" title="环境"></a>环境</h2><ul>
+<li>系统：ubuntu20.04</li>
+<li>docker版本<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">Client:</span><br><span class="line"> Version:           20.10.21</span><br><span class="line"> API version:       1.41</span><br><span class="line"> Go version:        go1.18.1</span><br><span class="line"> Git commit:        20.10.21-0ubuntu1~20.04.2</span><br><span class="line"> Built:             Thu Apr 27 05:56:19 2023</span><br><span class="line"> OS&#x2F;Arch:           linux&#x2F;amd64</span><br><span class="line"> Context:           default</span><br><span class="line"> Experimental:      true</span><br><span class="line"></span><br><span class="line">Server:</span><br><span class="line"> Engine:</span><br><span class="line">  Version:          20.10.21</span><br><span class="line">  API version:      1.41 (minimum version 1.12)</span><br><span class="line">  Go version:       go1.18.1</span><br><span class="line">  Git commit:       20.10.21-0ubuntu1~20.04.2</span><br><span class="line">  Built:            Thu Apr 27 05:37:01 2023</span><br><span class="line">  OS&#x2F;Arch:          linux&#x2F;amd64</span><br><span class="line">  Experimental:     false</span><br><span class="line"> containerd:</span><br><span class="line">  Version:          1.7.2</span><br><span class="line">  GitCommit:</span><br><span class="line"> runc:</span><br><span class="line">  Version:          1.1.0-0ubuntu1~20.04.2</span><br><span class="line">  GitCommit:</span><br><span class="line"> docker-init:</span><br><span class="line">  Version:          0.19.0</span><br><span class="line">  GitCommit:</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h2 id="修改docker镜像源"><a href="#修改docker镜像源" class="headerlink" title="修改docker镜像源"></a>修改docker镜像源</h2><p>修改/etc/docker/daemon.json 如下</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;insecure-registries&quot; : [&quot;192.168.2.166:8080&quot;, &quot;blinkz.asuscomm.com:18080&quot;],</span><br><span class="line">  &quot;registry-mirrors&quot;: [&quot;https:&#x2F;&#x2F;registry.docker-cn.com&quot;,&quot;http:&#x2F;&#x2F;hub-mirror.c.163.com&quot;,&quot;https:&#x2F;&#x2F;docker.mirrors.ustc.edu.cn&quot;],</span><br><span class="line">  &quot;exec-opts&quot;: [&quot;native.cgroupdriver&#x3D;systemd&quot;]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="使用阿里源安装k8s套件"><a href="#使用阿里源安装k8s套件" class="headerlink" title="使用阿里源安装k8s套件"></a>使用阿里源安装k8s套件</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"># 添加并信任APT证书</span><br><span class="line">curl https:&#x2F;&#x2F;mirrors.aliyun.com&#x2F;kubernetes&#x2F;apt&#x2F;doc&#x2F;apt-key.gpg | sudo apt-key add -</span><br><span class="line"></span><br><span class="line"># 添加源地址</span><br><span class="line">add-apt-repository &quot;deb https:&#x2F;&#x2F;mirrors.aliyun.com&#x2F;kubernetes&#x2F;apt&#x2F; kubernetes-xenial main&quot;</span><br><span class="line"></span><br><span class="line"># 更新源并安装最新版 kubenetes</span><br><span class="line">sudo apt update &amp;&amp; apt install -y kubelet kubeadm kubectl</span><br></pre></td></tr></table></figure>
+
+<h2 id="启动master节点"><a href="#启动master节点" class="headerlink" title="启动master节点"></a>启动master节点</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubeadm init --image-repository&#x3D;&#39;registry.cn-hangzhou.aliyuncs.com&#x2F;google_containers&#39;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="遇到的问题"><a href="#遇到的问题" class="headerlink" title="遇到的问题"></a>遇到的问题</h2><h3 id="kubeadm-init-报错-cri-相关"><a href="#kubeadm-init-报错-cri-相关" class="headerlink" title="kubeadm init 报错 cri 相关"></a><code>kubeadm init</code> 报错 <code>cri</code> 相关</h3><p>期间也遇到了 kubelet无法启动的问题，是相同的原因，是因为 <code>containerd</code> 服务版本问题导致的，更新 <code>containerd</code> 即可解决</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt install containerd</span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>ExecStart=/usr/bin/kubelet $KUBELET_KUBECONFIG_ARGS $KUBELET_CONFIG_ARGS $KUBELET_KUBEADM_ARGS $KUBELET_EXTRA_ARGS (code=exited, status=1/FAILURE)</code></li>
+<li>kubeadm init 遇到的错误<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"> kubeadm init --image-repository registry.aliyuncs.com&#x2F;google_containers</span><br><span class="line">W1201 08:57:17.177921  452826 version.go:104] could not fetch a Kubernetes version from the internet: unable to get URL &quot;https:&#x2F;&#x2F;dl.k8s.io&#x2F;release&#x2F;stable-1.txt&quot;: Get &quot;https:&#x2F;&#x2F;dl.k8s.io&#x2F;release&#x2F;stable-1.txt&quot;: dial tcp 34.107.204.206:443: connect: connection refused</span><br><span class="line">W1201 08:57:17.177998  452826 version.go:105] falling back to the local client version: v1.28.2</span><br><span class="line">[init] Using Kubernetes version: v1.28.2</span><br><span class="line">[preflight] Running pre-flight checks</span><br><span class="line">error execution phase preflight: [preflight] Some fatal errors occurred:</span><br><span class="line">        [ERROR IsPrivilegedUser]: user is not running as root</span><br><span class="line">[preflight] If you know what you are doing, you can make a check non-fatal with &#96;--ignore-preflight-errors&#x3D;...&#96;</span><br><span class="line">To see the stack trace of this error execute with --v&#x3D;5 or higher</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h3 id="为什么使用国内源"><a href="#为什么使用国内源" class="headerlink" title="为什么使用国内源"></a>为什么使用国内源</h3><p>国外源需要翻墙，非常麻烦</p>
+<h3 id="关于重新安装kubelet"><a href="#关于重新安装kubelet" class="headerlink" title="关于重新安装kubelet"></a>关于重新安装kubelet</h3><p>需要将 <code>/var/lib/kubelet</code> 目录完全删除</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"># 卸载</span><br><span class="line">sudo apt purge kubelet</span><br><span class="line">sudo rm -rf &#x2F;var&#x2F;lib&#x2F;kubelet</span><br><span class="line"></span><br><span class="line"># 重新安装</span><br><span class="line">sudo apt install kubelet kubeadm</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>kubelet_volumes.go:261] &quot;There were many similar errors. Turn up verbosity to see them.&quot;</code></li>
+</ul>
+<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><p><a href="https://gist.github.com/islishude/231659cec0305ace090b933ce851994a" target="_blank" rel="noopener">https://gist.github.com/islishude/231659cec0305ace090b933ce851994a</a></p>
+
+          
         
       
     </div>
@@ -446,7 +467,7 @@ docker版本12345678910111213141516171819202122232425262728Client:
               
                 <span class="post-meta-item-text">Post modified&#58;</span>
               
-              <time title="Post modified" itemprop="dateModified" datetime="2023-12-01T07:06:58+00:00">
+              <time title="Post modified" itemprop="dateModified" datetime="2023-12-01T07:12:38+00:00">
                 2023-12-01
               </time>
             
@@ -482,16 +503,9 @@ docker版本12345678910111213141516171819202122232425262728Client:
       
         
           
-          agent society
+            <p><img src="/images/agent-society.png" alt="alt"><br>agent society</p>
 
           
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2023/11/29/Agent-is-all-you-need/#more" rel="contents">
-              Read more &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
         
       
     </div>
@@ -585,7 +599,7 @@ docker版本12345678910111213141516171819202122232425262728Client:
               
                 <span class="post-meta-item-text">Post modified&#58;</span>
               
-              <time title="Post modified" itemprop="dateModified" datetime="2023-12-01T07:06:58+00:00">
+              <time title="Post modified" itemprop="dateModified" datetime="2023-12-01T07:12:38+00:00">
                 2023-12-01
               </time>
             
@@ -621,16 +635,9 @@ docker版本12345678910111213141516171819202122232425262728Client:
       
         
           
-          architecture
-backbone
+            <h2 id="architecture"><a href="#architecture" class="headerlink" title="architecture"></a>architecture</h2><p><img src="/images/YOLOv4-network-architecture.png" alt="alt"></p>
+<h2 id="backbone"><a href="#backbone" class="headerlink" title="backbone"></a>backbone</h2>
           
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2023/04/26/YOLOV4%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/#more" rel="contents">
-              Read more &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
         
       
     </div>
@@ -724,7 +731,7 @@ backbone
               
                 <span class="post-meta-item-text">Post modified&#58;</span>
               
-              <time title="Post modified" itemprop="dateModified" datetime="2023-12-01T07:06:58+00:00">
+              <time title="Post modified" itemprop="dateModified" datetime="2023-12-01T07:12:38+00:00">
                 2023-12-01
               </time>
             
@@ -782,16 +789,16 @@ backbone
       
         
           
-          引言Git LFS 是 Github 开发的一个 Git 的扩展，用于实现 Git 对大文件的支持。
-开发过程中二进制文件的改动，会给push或者pull带来很
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2020/08/04/Git-LFS%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-track%E5%92%8Cuntrack/#more" rel="contents">
-              Read more &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
+            <h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><p>Git LFS 是 Github 开发的一个 Git 的扩展，用于实现 Git 对大文件的支持。</p>
+<p>开发过程中二进制文件的改动，会给push或者pull带来很大的数据量，仓库的体积也会快速增长。GitLFS就是为了解决这样的问题。</p>
+<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git lfs install</span><br></pre></td></tr></table></figure>
+
+<h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2><h3 id="添加文件到GitLFS管理"><a href="#添加文件到GitLFS管理" class="headerlink" title="添加文件到GitLFS管理"></a>添加文件到GitLFS管理</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 添加所有jpg文件到GitLFS,此时会在项目中生成 .gitattributes 文件</span></span><br><span class="line">git lfs track <span class="string">'*.jpg'</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 其他命令</span></span><br><span class="line">git lfs status</span><br><span class="line">git lfs ls-files</span><br></pre></td></tr></table></figure>
+
+<h3 id="将文件从GitLFS中移出"><a href="#将文件从GitLFS中移出" class="headerlink" title="将文件从GitLFS中移出"></a>将文件从GitLFS中移出</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">git lfs untrack <span class="string">'*.jpg'</span></span><br><span class="line">git rm --cached <span class="string">'*.jpg'</span></span><br><span class="line">git lfs status</span><br><span class="line">git add .</span><br><span class="line">git commit -m <span class="string">'lfs untrack jpg'</span></span><br><span class="line">git push</span><br></pre></td></tr></table></figure>
+
+
+          
         
       
     </div>
@@ -885,7 +892,7 @@ backbone
               
                 <span class="post-meta-item-text">Post modified&#58;</span>
               
-              <time title="Post modified" itemprop="dateModified" datetime="2023-12-01T07:06:58+00:00">
+              <time title="Post modified" itemprop="dateModified" datetime="2023-12-01T07:12:38+00:00">
                 2023-12-01
               </time>
             
@@ -943,15 +950,12 @@ backbone
       
         
           
-          前言清理过程1234567891011121314# 清理data文件夹的所有索引git filter-branch --force --index-filte
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2020/08/04/Gitlab%E9%A1%B9%E7%9B%AE%E4%BD%93%E7%A7%AF%E6%B8%85%E7%90%86/#more" rel="contents">
-              Read more &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
+            <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><h2 id="清理过程"><a href="#清理过程" class="headerlink" title="清理过程"></a>清理过程</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 清理data文件夹的所有索引</span></span><br><span class="line">git filter-branch --force --index-filter <span class="string">'git rm -rf --cached --ignore-unmatch data'</span> --prune-empty --tag-name-filter cat -- --all</span><br><span class="line"></span><br><span class="line">rm -rf .git/refs/original/</span><br><span class="line">git reflog expire --expire=now --all</span><br><span class="line">git fsck --full --unreachable</span><br><span class="line">git repack -A -d</span><br><span class="line">git gc --prune=now</span><br><span class="line"></span><br><span class="line">git <span class="keyword">for</span>-each-ref --format=<span class="string">'delete %(refname)'</span> refs/original | git update-ref --stdin</span><br><span class="line">git reflog expire --expire=now --all</span><br><span class="line">git gc --prune=now</span><br><span class="line"></span><br><span class="line">du -d 1 -h</span><br></pre></td></tr></table></figure>
+<p>以上步骤后整个项目的体积会有非常明显的变化，但是当推送到仓库后，其仓库占用的体积依然巨大</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git push --all --force</span><br></pre></td></tr></table></figure>
+<p>从服务器上查处远程仓库的一些历史文件并没有被清理，所以使用了最为暴力的方案，将旧的项目备份重命名，建立新的项目，将瘦身过的代码直接推送到新的项目上</p>
+
+          
         
       
     </div>
@@ -1045,7 +1049,7 @@ backbone
               
                 <span class="post-meta-item-text">Post modified&#58;</span>
               
-              <time title="Post modified" itemprop="dateModified" datetime="2023-12-01T07:06:58+00:00">
+              <time title="Post modified" itemprop="dateModified" datetime="2023-12-01T07:12:38+00:00">
                 2023-12-01
               </time>
             
@@ -1081,15 +1085,12 @@ backbone
       
         
           
-          使用图床获取图像Url地址1http:&#x2F;&#x2F;10.1.2.37:7777&#x2F;images&#x2F;2020&#x2F;07&#x2F
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2020/07/06/Read-Image-From-Url/#more" rel="contents">
-              Read more &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
+            <h2 id="使用图床获取图像Url地址"><a href="#使用图床获取图像Url地址" class="headerlink" title="使用图床获取图像Url地址"></a>使用图床获取图像Url地址</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http:&#x2F;&#x2F;10.1.2.37:7777&#x2F;images&#x2F;2020&#x2F;07&#x2F;06&#x2F;d5-24a.jpg</span><br></pre></td></tr></table></figure>
+<p><img src="/images/d5-24a.jpg" alt="alt"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">from urllib.request import urlopen</span><br><span class="line">import numpy as np</span><br><span class="line">import matplotlib.pyplot as plt</span><br><span class="line"></span><br><span class="line">def read_url(url):</span><br><span class="line">    req &#x3D; urlopen(url)</span><br><span class="line">    arr &#x3D; np.asarray(bytearray(req.read()), dtype&#x3D;np.uint8)</span><br><span class="line">    img &#x3D; cv2.imdecode(arr, -1)</span><br><span class="line">    img &#x3D; cv2.cvtColor(img,cv2.COLOR_BGR2RGB)</span><br><span class="line">    return img</span><br><span class="line">    </span><br><span class="line">url &#x3D; &#39;http:&#x2F;&#x2F;10.1.2.37:7777&#x2F;images&#x2F;2020&#x2F;07&#x2F;06&#x2F;d5-24a.jpg&#39;</span><br><span class="line">img &#x3D; read_url(url)</span><br><span class="line">plt.imshow(img)</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+<p><img src="/images/d5-24a.jpg" alt="alt"></p>
+
+          
         
       
     </div>
@@ -1183,7 +1184,7 @@ backbone
               
                 <span class="post-meta-item-text">Post modified&#58;</span>
               
-              <time title="Post modified" itemprop="dateModified" datetime="2023-12-01T07:06:58+00:00">
+              <time title="Post modified" itemprop="dateModified" datetime="2023-12-01T07:12:38+00:00">
                 2023-12-01
               </time>
             
@@ -1241,16 +1242,31 @@ backbone
       
         
           
-          gitlab 团队协作流程
-Fork项目到自己的组选择自己的想要Fork到的group，一般都是Fork到自己的group现在可以看到这个项目已经在自己的组下面
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2020/06/05/gitlab%E7%9A%84PR%E6%B5%81%E7%A8%8B/#more" rel="contents">
-              Read more &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
+            <p>gitlab 团队协作流程</p>
+<h2 id="Fork项目到自己的组"><a href="#Fork项目到自己的组" class="headerlink" title="Fork项目到自己的组"></a>Fork项目到自己的组</h2><p><img src="/images/iShot2020-06-0513.08.18.png" alt="alt"><br>选择自己的想要Fork到的group，一般都是Fork到自己的group<br><img src="/images/iShot2020-06-0513.08.47.png" alt="alt"><br>现在可以看到这个项目已经在自己的组下面了<br><img src="/images/iShot2020-06-0513.09.22.png" alt="alt"></p>
+<h2 id="修改项目"><a href="#修改项目" class="headerlink" title="修改项目"></a>修改项目</h2><p>首先将项目clone下来<br><img src="/images/iShot2020-06-0513.09.55.png" alt="alt"><br>然后将修改项目，之后将修改的内容push到自己的仓库</p>
+<p>这里我只是修改了Readme文件，添加了一行内容TESTPR。<br><img src="/images/iShot2020-06-0513.11.10.png" alt="alt"></p>
+<h2 id="同步上游分支代码"><a href="#同步上游分支代码" class="headerlink" title="同步上游分支代码"></a>同步上游分支代码</h2><ol>
+<li>添加源分支URL<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git remote add upstream [源项目 URL]</span><br></pre></td></tr></table></figure></li>
+<li>创建基于源项目的本地分支<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># 只有第一次使用 chekcout -b</span><br><span class="line">git checkout -b upstream-master upstream&#x2F;master</span><br></pre></td></tr></table></figure>
+后面的checkout使用下面的命令<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git checkout upstream-master</span><br></pre></td></tr></table></figure></li>
+<li>从源分支获取最新的代码<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git pull</span><br></pre></td></tr></table></figure></li>
+<li>切换到本地主分支/开发分支<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git checkout master</span><br></pre></td></tr></table></figure></li>
+<li>合并本地分支和源分支</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 推荐使用ide进行操作</span></span><br><span class="line">git merge upstream-master</span><br></pre></td></tr></table></figure>
+<ol start="6">
+<li>push到Fork的分支<br>git push</li>
+</ol>
+<p>其中1、2的第一种操作只需要做一次，2的第二种操作和3-6在每次准备提MR的时候都需要做</p>
+<h2 id="提MR"><a href="#提MR" class="headerlink" title="提MR"></a>提MR</h2><p>在gitlab左边的侧边栏有merge request选项,进入该选项<br><img src="/images/iShot2020-06-0513.11.53.png" alt="alt"></p>
+<p>发起merge request，source branch选择刚刚修改过的分支dev，target branch也选择dev，然后点击下面的coninue按钮<br><img src="/images/iShot2020-06-0513.13.01.png" alt="alt"></p>
+<p>这里需要填写MR的相关信息，Asignee选择代码审核人，description填写修改的详细信息，然后点击submit按钮。</p>
+<p>这时代码审核人会收到一封merge request的邮件。gitlab页面的右上角也会有通知<br><img src="/images/iShot2020-06-0513.14.23.png" alt="alt"></p>
+<p>我这里选择了我自己，方便下一步的操作。然后进入到了merge request的审查页面。审核人可以从changes标签页面查看代码修改的具体内容。当代码有冲突的时候是无法merge的。当审核人对代码有任何疑问时，可以在下方提问发起者<br><img src="/images/iShot2020-06-0513.15.12.png" alt="alt"></p>
+<p><img src="/images/iShot2020-06-0513.16.05.png" alt="alt"></p>
+
+          
         
       
     </div>
@@ -1344,7 +1360,7 @@ Fork项目到自己的组选择自己的想要Fork到的group，一般都是Fork
               
                 <span class="post-meta-item-text">Post modified&#58;</span>
               
-              <time title="Post modified" itemprop="dateModified" datetime="2023-12-01T07:06:58+00:00">
+              <time title="Post modified" itemprop="dateModified" datetime="2023-12-01T07:12:38+00:00">
                 2023-12-01
               </time>
             
@@ -1402,15 +1418,8 @@ Fork项目到自己的组选择自己的想要Fork到的group，一般都是Fork
       
         
           
-          linux通过命令行获取外网ip123456curl ifconfig.mecurl icanhazip.comcurl ident.mecurl whatis
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2020/05/13/linuxIP/#more" rel="contents">
-              Read more &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
+            <h1 id="linux通过命令行获取外网ip"><a href="#linux通过命令行获取外网ip" class="headerlink" title="linux通过命令行获取外网ip"></a>linux通过命令行获取外网ip</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">curl ifconfig.me</span><br><span class="line">curl icanhazip.com</span><br><span class="line">curl ident.me</span><br><span class="line">curl whatismyip.akamai.com</span><br><span class="line">curl tnx.nl&#x2F;ip</span><br><span class="line">curl myip.dnsomatic.com</span><br></pre></td></tr></table></figure>
+          
         
       
     </div>
@@ -1504,7 +1513,7 @@ Fork项目到自己的组选择自己的想要Fork到的group，一般都是Fork
               
                 <span class="post-meta-item-text">Post modified&#58;</span>
               
-              <time title="Post modified" itemprop="dateModified" datetime="2023-12-01T07:06:58+00:00">
+              <time title="Post modified" itemprop="dateModified" datetime="2023-12-01T07:12:38+00:00">
                 2023-12-01
               </time>
             
@@ -1562,16 +1571,10 @@ Fork项目到自己的组选择自己的想要Fork到的group，一般都是Fork
       
         
           
-          KMeans算法原理不用过多阐述，也比较简单。主要记录一下Kmeans聚类时的维度贡献。
-Kmeans聚类后每一个类都会有类中心，当使用m维的数据来聚类时，一个
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2020/04/21/%E8%81%9A%E7%B1%BB%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/#more" rel="contents">
-              Read more &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
+            <h1 id="KMeans"><a href="#KMeans" class="headerlink" title="KMeans"></a>KMeans</h1><p>算法原理不用过多阐述，也比较简单。主要记录一下Kmeans聚类时的维度贡献。</p>
+<p>Kmeans聚类后每一个类都会有类中心，当使用m维的数据来聚类时，一个类的类中心相当于一个m维空间的一个坐标$(x_{11},x_{12},x_{13},…x_{1m})$。两个类中心的距离就是两个点的欧式距离，这个距离的大小也衡量类两个类的差异大小。<br>$$<br>distance^2 = (x_{11}-x_{21})^2+(x_{12}-x_{22})^2+….(x_{1m}-x_{2m})^2<br>$$<br>可以从这个距离的计算公式中轻易的判别出对聚类贡献最大的维度。</p>
+<h1 id="谱聚类"><a href="#谱聚类" class="headerlink" title="谱聚类"></a>谱聚类</h1><h1 id="层次聚类"><a href="#层次聚类" class="headerlink" title="层次聚类"></a>层次聚类</h1><h1 id="密度聚类"><a href="#密度聚类" class="headerlink" title="密度聚类"></a>密度聚类</h1><h1 id="模糊聚类"><a href="#模糊聚类" class="headerlink" title="模糊聚类"></a>模糊聚类</h1>
+          
         
       
     </div>
@@ -1665,7 +1668,7 @@ Kmeans聚类后每一个类都会有类中心，当使用m维的数据来聚类�
               
                 <span class="post-meta-item-text">Post modified&#58;</span>
               
-              <time title="Post modified" itemprop="dateModified" datetime="2023-12-01T07:06:58+00:00">
+              <time title="Post modified" itemprop="dateModified" datetime="2023-12-01T07:12:38+00:00">
                 2023-12-01
               </time>
             
